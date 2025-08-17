@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jadwal Kuliah - Nindy</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            height: 100vh;
+            overflow: hidden;
+            padding: 8px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .schedule-container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            padding: 15px;
+            text-align: center;
+            flex-shrink: 0;
+        }
+        
+        .header h1 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 3px;
+        }
+        
+        .header p {
+            font-size: 0.85rem;
+            opacity: 0.95;
+        }
+        
+        .schedule-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 8px;
+        }
+        
+        .day-section {
+            margin-bottom: 8px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .day-header {
+            padding: 8px 12px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .senin { background: linear-gradient(135deg, #4285f4, #34a853); }
+        .selasa { background: linear-gradient(135deg, #34a853, #fbbc04); }
+        .rabu { background: linear-gradient(135deg, #9c27b0, #e91e63); }
+        .kamis { background: linear-gradient(135deg, #ff9800, #ff5722); }
+        .jumat { background: linear-gradient(135deg, #f44336, #e91e63); }
+        
+        .day-content {
+            background: #fafafa;
+        }
+        
+        .class-item {
+            padding: 8px 12px;
+            border-bottom: 1px solid #e0e0e0;
+            font-size: 0.75rem;
+        }
+        
+        .class-item:last-child {
+            border-bottom: none;
+        }
+        
+        .class-time {
+            font-weight: 600;
+            color: #333;
+            font-size: 0.8rem;
+            margin-bottom: 2px;
+        }
+        
+        .class-name {
+            font-size: 0.75rem;
+            color: #555;
+            font-weight: 500;
+            margin-bottom: 1px;
+            line-height: 1.2;
+        }
+        
+        .class-location {
+            font-size: 0.65rem;
+            color: #777;
+            margin-bottom: 2px;
+            font-style: italic;
+        }
+        
+        .class-lecturers {
+            font-size: 0.65rem;
+            color: #666;
+            background: #e3f2fd;
+            padding: 2px 6px;
+            border-radius: 8px;
+            display: inline-block;
+        }
+        
+        .emoji {
+            font-size: 1rem;
+        }
+        
+        /* Compact layout for mobile */
+        @media (max-width: 480px) {
+            .schedule-container {
+                height: calc(100vh - 16px);
+            }
+            
+            .class-item {
+                padding: 6px 10px;
+            }
+            
+            .class-name {
+                font-size: 0.7rem;
+                font-weight: 500;
+            }
+            
+            .class-time {
+                font-size: 0.75rem;
+            }
+            
+            .class-location, .class-lecturers {
+                font-size: 0.6rem;
+            }
+        }
+        
+        /* Ultra compact for very small screens */
+        @media (max-height: 700px) {
+            .header {
+                padding: 10px;
+            }
+            
+            .header h1 {
+                font-size: 1.1rem;
+            }
+            
+            .header p {
+                font-size: 0.75rem;
+            }
+            
+            .day-header {
+                padding: 6px 10px;
+                font-size: 0.8rem;
+            }
+            
+            .class-item {
+                padding: 5px 10px;
+            }
+            
+            .class-name {
+                font-size: 0.65rem;
+                margin-bottom: 1px;
+            }
+            
+            .class-time {
+                font-size: 0.7rem;
+            }
+            
+            .class-location, .class-lecturers {
+                font-size: 0.55rem;
+            }
+            
+            .day-section {
+                margin-bottom: 6px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="schedule-container">
+        <div class="header">
+            <h1>📚 JADWAL KULIAH - NINDY</h1>
+            <p>⌚ Senin - Jumat | 07:00 - 16:00 WIB</p>
+        </div>
+        
+        <div class="schedule-content">
+            <!-- SENIN -->
+            <div class="day-section">
+                <div class="day-header senin">
+                    <span class="emoji">🟦</span>
+                    <span>SENIN</span>
+                </div>
+                <div class="day-content">
+                    <div class="class-item">
+                        <div class="class-time">07:00-09:50</div>
+                        <div class="class-name">PRAKTIKUM ANALISA FARMASI KUALITATIF</div>
+                        <div class="class-location">Lab Kimia Analisa</div>
+                        <div class="class-lecturers">Indah, Andry, Hafid</div>
+                    </div>
+                    <div class="class-item">
+                        <div class="class-time">10:00-12:50</div>
+                        <div class="class-name">PRAKTIKUM TEKNOLOGI FARMASI CAIR</div>
+                        <div class="class-location">Lab Farmasetika</div>
+                        <div class="class-lecturers">Rennat, Najma, Alinda</div>
+                    </div>
+                    <div class="class-item">
+                        <div class="class-time">13:00-15:50</div>
+                        <div class="class-name">MIKROBIOLOGI FARMASI</div>
+                        <div class="class-location">Lab Mikrobiologi</div>
+                        <div class="class-lecturers">Laida, Indah, Hafid</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SELASA -->
+            <div class="day-section">
+                <div class="day-header selasa">
+                    <span class="emoji">🟩</span>
+                    <span>SELASA</span>
+                </div>
+                <div class="day-content">
+                    <div class="class-item">
+                        <div class="class-time">08:00-09:50</div>
+                        <div class="class-name">FARMAKOLOGI LANJUT</div>
+                        <div class="class-location">D3101</div>
+                        <div class="class-lecturers">Herlina, Annisa</div>
+                    </div>
+                    <div class="class-item">
+                        <div class="class-time">10:00-12:00</div>
+                        <div class="class-name">MANAJEMEN LABORATORIUM</div>
+                        <div class="class-location">D3101</div>
+                        <div class="class-lecturers">Dina, Viva, Zainnal</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RABU -->
+            <div class="day-section">
+                <div class="day-header rabu">
+                    <span class="emoji">🟪</span>
+                    <span>RABU</span>
+                </div>
+                <div class="day-content">
+                    <div class="class-item">
+                        <div class="class-time">08:00-09:50</div>
+                        <div class="class-name">MIKROBIOLOGI FARMASI</div>
+                        <div class="class-location">D3101</div>
+                        <div class="class-lecturers">Miksusanti, Laida, Hafid</div>
+                    </div>
+                    <div class="class-item">
+                        <div class="class-time">10:00-12:00</div>
+                        <div class="class-name">PRAKTIKUM TEKNOLOGI FARMASI CAIR</div>
+                        <div class="class-location">D3101-D3103</div>
+                        <div class="class-lecturers">Rennat, Najma</div>
+                    </div>
+                    <div class="class-item">
+                        <div class="class-time">13:00-15:00</div>
+                        <div class="class-name">ANALISA FARMASI KUALITATIF</div>
+                        <div class="class-location">D3202</div>
+                        <div class="class-lecturers">Miksusanti, Indah, Andry</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- KAMIS -->
+            <div class="day-section">
+                <div class="day-header kamis">
+                    <span class="emoji">🟧</span>
+                    <span>KAMIS</span>
+                </div>
+                <div class="day-content">
+                    <div class="class-item">
+                        <div class="class-time">08:00-09:50</div>
+                        <div class="class-name">KEWIRAUSAHAAN</div>
+                        <div class="class-location">D3101</div>
+                        <div class="class-lecturers">Shaum, Viva, Zainal</div>
+                    </div>
+                    <div class="class-item">
+                        <div class="class-time">13:00-15:00</div>
+                        <div class="class-name">BIOKIMIA KLINIS</div>
+                        <div class="class-location">D3101</div>
+                        <div class="class-lecturers">Miksusanti, Laida, Rafiqah</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- JUMAT -->
+            <div class="day-section">
+                <div class="day-header jumat">
+                    <span class="emoji">🟥</span>
+                    <span>JUMAT</span>
+                </div>
+                <div class="day-content">
+                    <div class="class-item">
+                        <div class="class-time">07:00-09:50</div>
+                        <div class="class-name">PRAKTIKUM BIOKIMIA KLINIS</div>
+                        <div class="class-location">Lab Kimia Analisa</div>
+                        <div class="class-lecturers">Laida, Indah, Rafiqah</div>
+                    </div>
+                    <div class="class-item">
+                        <div class="class-time">10:00-12:00</div>
+                        <div class="class-name">FARMAKOLOGI LANJUT</div>
+                        <div class="class-location">Lab Farkol</div>
+                        <div class="class-lecturers">Herlina, Annisa</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
