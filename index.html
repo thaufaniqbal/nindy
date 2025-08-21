@@ -130,6 +130,54 @@
             font-size: 1rem;
         }
 
+        /* Love Animation Styles */
+        .love-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 999;
+            overflow: hidden;
+        }
+
+        .floating-love {
+            position: absolute;
+            color: #ff69b4;
+            animation: floatUp 4s linear infinite;
+            user-select: none;
+            text-shadow: 0 0 10px rgba(255, 105, 180, 0.6);
+        }
+
+        .floating-love.bold {
+            font-weight: 900;
+            color: #ff1493;
+        }
+
+        .floating-love.light {
+            font-weight: 300;
+            color: #ffb6c1;
+            opacity: 0.8;
+        }
+
+        @keyframes floatUp {
+            0% {
+                opacity: 0;
+                transform: translateY(100vh) rotate(0deg);
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-20vh) rotate(360deg);
+            }
+        }
+
         /* Popup Styles */
         .popup-overlay {
             position: fixed;
@@ -280,6 +328,9 @@
     </style>
 </head>
 <body>
+    <!-- Love Animation Container -->
+    <div class="love-container" id="loveContainer"></div>
+
     <!-- Popup -->
     <div id="popup" class="popup-overlay">
         <div class="popup-content">
@@ -429,6 +480,58 @@
     </div>
 
     <script>
+        function createFloatingLove() {
+            const loveContainer = document.getElementById('loveContainer');
+            const love = document.createElement('div');
+            love.textContent = '❤️';
+            love.className = 'floating-love';
+            
+            // Random size
+            const sizes = ['0.8rem', '1rem', '1.2rem', '1.4rem', '0.6rem'];
+            love.style.fontSize = sizes[Math.floor(Math.random() * sizes.length)];
+            
+            // Random weight class
+            const weights = ['', 'bold', 'light'];
+            const randomWeight = weights[Math.floor(Math.random() * weights.length)];
+            if (randomWeight) love.classList.add(randomWeight);
+            
+            // Random horizontal position
+            love.style.left = Math.random() * 90 + '%';
+            
+            // Random animation duration
+            const duration = Math.random() * 2 + 3; // 3-5 seconds
+            love.style.animationDuration = duration + 's';
+            
+            // Random delay
+            love.style.animationDelay = Math.random() * 2 + 's';
+            
+            loveContainer.appendChild(love);
+            
+            // Remove love after animation
+            setTimeout(() => {
+                if (love.parentNode) {
+                    love.parentNode.removeChild(love);
+                }
+            }, (duration + 2) * 1000);
+        }
+
+        function startLoveAnimation() {
+            // Create initial batch
+            for (let i = 0; i < 8; i++) {
+                setTimeout(() => createFloatingLove(), i * 300);
+            }
+            
+            // Continue creating loves periodically
+            const interval = setInterval(() => {
+                createFloatingLove();
+            }, 800);
+            
+            // Stop after 15 seconds
+            setTimeout(() => {
+                clearInterval(interval);
+            }, 15000);
+        }
+
         function closePopup() {
             const popup = document.getElementById('popup');
             popup.style.animation = 'popupDisappear 0.3s ease-in forwards';
@@ -436,6 +539,11 @@
                 popup.classList.add('hidden');
             }, 300);
         }
+
+        // Start love animation when page loads
+        window.addEventListener('load', () => {
+            setTimeout(startLoveAnimation, 500);
+        });
 
         // Add disappear animation
         const style = document.createElement('style');
